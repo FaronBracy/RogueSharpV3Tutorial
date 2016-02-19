@@ -6,6 +6,22 @@ namespace RogueSharpV3Tutorial.Core
    // Our custom DungeonMap class extends the base RogueSharp Map class
    public class DungeonMap : Map
    {
+      // This method will be called any time we move the player to update field-of-view
+      public void UpdatePlayerFieldOfView()
+      {
+         Player player = Game.Player;
+         // Compute the field-of-view based on the player's location and awareness
+         ComputeFov( player.X, player.Y, player.Awareness, true );
+         // Mark all cells in field-of-view as having been explored
+         foreach ( Cell cell in GetAllCells() )
+         {
+            if ( IsInFov( cell.X, cell.Y ) )
+            {
+               SetCellProperties( cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true );
+            }
+         }
+      }
+
       // The Draw method will be called each time the map is updated
       // It will render all of the symbols/colors for each cell to the map sub console
       public void Draw( RLConsole mapConsole )
