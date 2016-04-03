@@ -54,6 +54,14 @@ namespace RogueSharpV3Tutorial.Core
          return false;
       }
 
+      // Called by MapGenerator after we generate a new map to add the player to the map
+      public void AddPlayer( Player player )
+      {
+         Game.Player = player;
+         SetIsWalkable( player.X, player.Y, false );
+         UpdatePlayerFieldOfView();
+      }
+
       // A helper method for setting the IsWalkable property on a Cell
       public void SetIsWalkable( int x, int y, bool isWalkable )
       {
