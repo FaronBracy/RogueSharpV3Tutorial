@@ -35,8 +35,12 @@ namespace RogueSharpV3Tutorial
 
       private static bool _renderRequired = true;
 
+      // Temporary variable just to show our MessageLog is working
+      private static int _steps = 0;
+
       public static Player Player { get; set; }
       public static DungeonMap DungeonMap { get; private set; }
+      public static MessageLog MessageLog { get; private set; }
       public static CommandSystem CommandSystem { get; private set; }
 
       // We can use this instance of IRandom throughout our game when generating random number
@@ -53,6 +57,11 @@ namespace RogueSharpV3Tutorial
 
          // The title will appear at the top of the console window along with the seed used to generate the level
          string consoleTitle = $"RougeSharp V3 Tutorial - Level 1 - Seed {seed}";
+
+         // Create a new MessageLog and print the random seed used to generate the level
+         MessageLog = new MessageLog();
+         MessageLog.Add( "The rogue arrives on level 1" );
+         MessageLog.Add( $"Level created with seed '{seed}'" );
 
          // Tell RLNet to use the bitmap font that we specified and that each tile is 8 x 8 pixels
          _rootConsole = new RLRootConsole( fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle );
@@ -76,9 +85,6 @@ namespace RogueSharpV3Tutorial
          _rootConsole.Render += OnRootConsoleRender;
 
          // Set background color and text for each console so that we can verify they are in the correct positions
-         _messageConsole.SetBackColor( 0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater );
-         _messageConsole.Print( 1, 1, "Messages", Colors.TextHeading );
-
          _statConsole.SetBackColor( 0, 0, _statWidth, _statHeight, Swatch.DbOldStone );
          _statConsole.Print( 1, 1, "Stats", Colors.TextHeading );
 
@@ -121,6 +127,7 @@ namespace RogueSharpV3Tutorial
 
          if ( didPlayerAct )
          {
+            MessageLog.Add( $"Step # {++_steps}" );  
             _renderRequired = true;
          }
       }
@@ -133,6 +140,7 @@ namespace RogueSharpV3Tutorial
          {
             DungeonMap.Draw( _mapConsole );
             Player.Draw( _mapConsole, DungeonMap );
+            MessageLog.Draw( _messageConsole );
 
             // Blit the sub consoles to the root console in the correct locations
             RLConsole.Blit( _mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight );
