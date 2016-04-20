@@ -35,9 +35,6 @@ namespace RogueSharpV3Tutorial
 
       private static bool _renderRequired = true;
 
-      // Temporary variable just to show our MessageLog is working
-      private static int _steps = 0;
-
       public static Player Player { get; set; }
       public static DungeonMap DungeonMap { get; private set; }
       public static MessageLog MessageLog { get; private set; }
@@ -85,9 +82,6 @@ namespace RogueSharpV3Tutorial
          _rootConsole.Render += OnRootConsoleRender;
 
          // Set background color and text for each console so that we can verify they are in the correct positions
-         _statConsole.SetBackColor( 0, 0, _statWidth, _statHeight, Swatch.DbOldStone );
-         _statConsole.Print( 1, 1, "Stats", Colors.TextHeading );
-
          _inventoryConsole.SetBackColor( 0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood );
          _inventoryConsole.Print( 1, 1, "Inventory", Colors.TextHeading );
 
@@ -127,7 +121,6 @@ namespace RogueSharpV3Tutorial
 
          if ( didPlayerAct )
          {
-            MessageLog.Add( $"Step # {++_steps}" );  
             _renderRequired = true;
          }
       }
@@ -140,6 +133,7 @@ namespace RogueSharpV3Tutorial
          {
             DungeonMap.Draw( _mapConsole );
             Player.Draw( _mapConsole, DungeonMap );
+            Player.DrawStats( _statConsole );  
             MessageLog.Draw( _messageConsole );
 
             // Blit the sub consoles to the root console in the correct locations
