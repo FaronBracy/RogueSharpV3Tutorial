@@ -22,11 +22,11 @@ namespace RogueSharpV3Tutorial.Core
 
       public void DrawStats( RLConsole statConsole )
       {
-         statConsole.Print( 1, 1, $"Name:    {Name}", RLColor.White );
-         statConsole.Print( 1, 3, $"Health:  {Health}/{MaxHealth}", RLColor.White );
-         statConsole.Print( 1, 5, $"Attack:  {Attack} ({AttackChance}%)", RLColor.White );
-         statConsole.Print( 1, 7, $"Defense: {Defense} ({DefenseChance}%)", RLColor.White );
-         statConsole.Print( 1, 9, $"Gold:    {Gold}", RLColor.Yellow );
+         statConsole.Print( 1, 1, $"Name:    {Name}", Colors.Text );
+         statConsole.Print( 1, 3, $"Health:  {Health}/{MaxHealth}", Colors.Text );
+         statConsole.Print( 1, 5, $"Attack:  {Attack} ({AttackChance}%)", Colors.Text );
+         statConsole.Print( 1, 7, $"Defense: {Defense} ({DefenseChance}%)", Colors.Text );
+         statConsole.Print( 1, 9, $"Gold:    {Gold}", Colors.Gold );
       }
    }
 }
