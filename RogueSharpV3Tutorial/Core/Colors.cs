@@ -19,5 +19,6 @@ namespace RogueSharpV3Tutorial.Core
       public static RLColor Gold = Swatch.DbSun;
 
       public static RLColor Player = Swatch.DbLight;
+      public static RLColor KoboldColor = Swatch.DbBrightWood;
    }
 }
