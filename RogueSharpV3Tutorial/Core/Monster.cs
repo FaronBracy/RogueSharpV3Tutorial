@@ -1,11 +1,14 @@
 ﻿using System;
 using RLNET;
-using RogueSharp;
+using RogueSharpV3Tutorial.Behaviors;
+using RogueSharpV3Tutorial.Systems;
 
 namespace RogueSharpV3Tutorial.Core
 {
    public class Monster : Actor
    {
+      public int? TurnsAlerted { get; set; }
+
       public void DrawStats( RLConsole statConsole, int position )
       {
          // Start at Y=13 which is below the player stats.
@@ -21,6 +24,12 @@ namespace RogueSharpV3Tutorial.Core
          statConsole.SetBackColor( 3 + width, yPosition, remainingWidth, 1, Swatch.PrimaryDarkest );
          // Print the monsters name over top of the health bar
          statConsole.Print( 2, yPosition, $": {Name}", Swatch.DbLight );
+      }
+
+      public virtual void PerformAction( CommandSystem commandSystem )
+      {
+         var behavior = new StandardMoveAndAttack();
+         behavior.Act( this, commandSystem );
       }
    }
 }
