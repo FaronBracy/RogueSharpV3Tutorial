@@ -10,13 +10,15 @@ namespace RogueSharpV3Tutorial.Core
    {
       private readonly List<Monster> _monsters;
 
-      public List<Rectangle> Rooms;
+      public List<Rectangle> Rooms { get; set; }
+      public List<Door> Doors { get; set; }
 
       public DungeonMap()
       {
          // Initialize all the lists when we create a new DungeonMap
          _monsters = new List<Monster>();
          Rooms = new List<Rectangle>();
+         Doors = new List<Door>();
       }
 
       // This method will be called any time we move the player to update field-of-view
@@ -48,6 +50,8 @@ namespace RogueSharpV3Tutorial.Core
             actor.Y = y;
             // The new cell the actor is on is now not walkable
             SetIsWalkable( actor.X, actor.Y, false );
+            // Try to open a door if one exists here
+            OpenDoor( actor, x, y );
             // Don't forget to update the field of view if we just repositioned the player
             if ( actor is Player )
             {
@@ -56,6 +60,27 @@ namespace RogueSharpV3Tutorial.Core
             return true;
          }
          return false;
+      }
+
+      // Return the door at the x,y position or null if one is not found.
+      public Door GetDoor( int x, int y )
+      {
+         return Doors.SingleOrDefault( d => d.X == x && d.Y == y );
+      }
+
+      // The actor opens the door located at the x,y position
+      private void OpenDoor( Actor actor, int x, int y )
+      {
+         Door door = GetDoor( x, y );
+         if ( door != null && !door.IsOpen )
+         {
+            door.IsOpen = true;
+            var cell = GetCell( x, y );
+            // Once the door is opened it should be marked as transparent and no longer block field-of-view
+            SetCellProperties( x, y, true, cell.IsWalkable, cell.IsExplored );
+
+            Game.MessageLog.Add( $"{actor.Name} opened a door" );
+         }
       }
 
       // Called by MapGenerator after we generate a new map to add the player to the map
@@ -138,6 +163,11 @@ namespace RogueSharpV3Tutorial.Core
          foreach ( Cell cell in GetAllCells() )
          {
             SetConsoleSymbolForCell( mapConsole, cell );
+         }
+
+         foreach ( Door door in Doors )
+         {
+            door.Draw( mapConsole, this );
          }
 
          // Keep an index so we know which position to draw monster stats at
