@@ -20,7 +20,7 @@ namespace RogueSharpV3Tutorial.Systems
 
       // Constructing a new MapGenerator requires the dimensions of the maps it will create
       // as well as the sizes and maximum number of rooms
-      public MapGenerator( int width, int height, int maxRooms, int roomMaxSize, int roomMinSize )
+      public MapGenerator( int width, int height, int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel )
       {
          _width = width;
          _height = height;
@@ -91,6 +91,8 @@ namespace RogueSharpV3Tutorial.Systems
             CreateRoom( room );
             CreateDoors( room );
          }
+
+         CreateStairs();
 
          PlacePlayer();
 
@@ -214,6 +216,22 @@ namespace RogueSharpV3Tutorial.Systems
          player.Y = _map.Rooms[0].Center.Y;
 
          _map.AddPlayer( player );
+      }
+
+      private void CreateStairs()
+      {
+         _map.StairsUp = new Stairs
+         {
+            X = _map.Rooms.First().Center.X + 1,
+            Y = _map.Rooms.First().Center.Y,
+            IsUp = true
+         };
+         _map.StairsDown = new Stairs
+         {
+            X = _map.Rooms.Last().Center.X,
+            Y = _map.Rooms.Last().Center.Y,
+            IsUp = false
+         };
       }
 
       private void PlaceMonsters()
