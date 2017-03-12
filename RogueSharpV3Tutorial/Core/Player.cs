@@ -1,4 +1,5 @@
 ﻿using RLNET;
+using RogueSharpV3Tutorial.Equipment;
 
 namespace RogueSharpV3Tutorial.Core
 {
@@ -27,6 +28,15 @@ namespace RogueSharpV3Tutorial.Core
          statConsole.Print( 1, 5, $"Attack:  {Attack} ({AttackChance}%)", Colors.Text );
          statConsole.Print( 1, 7, $"Defense: {Defense} ({DefenseChance}%)", Colors.Text );
          statConsole.Print( 1, 9, $"Gold:    {Gold}", Colors.Gold );
+      }
+
+      public void DrawInventory( RLConsole inventoryConsole )
+      {
+         inventoryConsole.Print( 1, 1, "Equipment", Colors.TextHeading );
+         inventoryConsole.Print( 1, 3, $"Head: {Head.Name}", Head == HeadEquipment.None() ? Colors.TextDisabled : Colors.Text );
+         inventoryConsole.Print( 1, 5, $"Body: {Body.Name}", Body == BodyEquipment.None() ? Colors.TextDisabled : Colors.Text );
+         inventoryConsole.Print( 1, 7, $"Hand: {Hand.Name}", Hand == HandEquipment.None() ? Colors.TextDisabled : Colors.Text );
+         inventoryConsole.Print( 1, 9, $"Feet: {Feet.Name}", Feet == FeetEquipment.None() ? Colors.TextDisabled : Colors.Text );
       }
    }
 }

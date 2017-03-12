@@ -1,12 +1,26 @@
 ﻿using RLNET;
 using RogueSharp;
+using RogueSharpV3Tutorial.Equipment;
 using RogueSharpV3Tutorial.Interfaces;
 
 namespace RogueSharpV3Tutorial.Core
 {
    public class Actor : IActor, IDrawable, IScheduleable
    {
-      // IActor
+      public Actor()
+      {
+         Head = HeadEquipment.None();
+         Body = BodyEquipment.None();
+         Hand = HandEquipment.None();
+         Feet = FeetEquipment.None();
+      }
+
+      // Implementation of IActor
+      public HeadEquipment Head { get; set; }
+      public BodyEquipment Body { get; set; }
+      public HandEquipment Hand { get; set; }
+      public FeetEquipment Feet { get; set; }
+
       private int _attack;
       private int _attackChance;
       private int _awareness;
@@ -22,7 +36,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _attack;
+            return _attack + Head.Attack + Body.Attack + Hand.Attack + Feet.Attack;
          }
          set
          {
@@ -34,7 +48,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _attackChance;
+            return _attackChance + Head.AttackChance + Body.AttackChance + Hand.AttackChance + Feet.AttackChance;
          }
          set
          {
@@ -46,7 +60,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _awareness;
+            return _awareness + Head.Awareness + Body.Awareness + Hand.Awareness + Feet.Awareness;
          }
          set
          {
@@ -58,7 +72,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _defense;
+            return _defense + Head.Defense + Body.Defense + Hand.Defense + Feet.Defense;
          }
          set
          {
@@ -70,7 +84,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _defenseChance;
+            return _defenseChance + Head.DefenseChance + Body.DefenseChance + Hand.DefenseChance + Feet.DefenseChance;
          }
          set
          {
@@ -82,7 +96,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _gold;
+            return _gold + Head.Gold + Body.Gold + Hand.Gold + Feet.Gold;
          }
          set
          {
@@ -106,7 +120,7 @@ namespace RogueSharpV3Tutorial.Core
       {
          get
          {
-            return _maxHealth;
+            return _maxHealth + Head.MaxHealth + Body.MaxHealth + Hand.MaxHealth + Feet.MaxHealth;
          }
          set
          {
@@ -123,14 +137,14 @@ namespace RogueSharpV3Tutorial.Core
          set
          {
             _name = value;
-         } 
+         }
       }
 
       public int Speed
       {
          get
          {
-            return _speed;
+            return _speed + Head.Speed + Body.Speed + Hand.Speed + Feet.Speed;
          }
          set
          {
@@ -138,7 +152,7 @@ namespace RogueSharpV3Tutorial.Core
          }
       }
 
-      // IDrawable
+      // Implementation of IDrawable
       public RLColor Color { get; set; }
       public char Symbol { get; set; }
       public int X { get; set; }
@@ -163,7 +177,7 @@ namespace RogueSharpV3Tutorial.Core
          }
       }
 
-      // IScheduleable
+      // Implementation off IScheduleable
       public int Time
       {
          get

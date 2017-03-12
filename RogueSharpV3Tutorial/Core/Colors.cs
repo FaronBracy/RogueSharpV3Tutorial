@@ -21,6 +21,7 @@ namespace RogueSharpV3Tutorial.Core
 
       public static RLColor TextHeading = RLColor.White;
       public static RLColor Text = Swatch.DbLight;
+      public static RLColor TextDisabled = Swatch.DbOldStone;
       public static RLColor Gold = Swatch.DbSun;
 
       public static RLColor Player = Swatch.DbLight;

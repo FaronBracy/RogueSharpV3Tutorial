@@ -1,14 +1,7 @@
-﻿using RogueSharpV3Tutorial.Equipment;
-
-namespace RogueSharpV3Tutorial.Interfaces
+﻿namespace RogueSharpV3Tutorial.Interfaces
 {
-   public interface IActor
+   public interface IEquipment
    {
-      HeadEquipment Head { get; set; }
-      BodyEquipment Body { get; set; }
-      HandEquipment Hand { get; set; }
-      FeetEquipment Feet { get; set; }
-
       int Attack { get; set; }
       int AttackChance { get; set; }
       int Awareness { get; set; }

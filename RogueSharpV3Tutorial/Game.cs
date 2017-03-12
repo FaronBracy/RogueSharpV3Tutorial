@@ -85,10 +85,6 @@ namespace RogueSharpV3Tutorial
          // Set up a handler for RLNET's Render event
          _rootConsole.Render += OnRootConsoleRender;
 
-         // Set background color and text for each console so that we can verify they are in the correct positions
-         _inventoryConsole.SetBackColor( 0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood );
-         _inventoryConsole.Print( 1, 1, "Inventory", Colors.TextHeading );
-
          // Begin RLNET's game loop
          _rootConsole.Run();
       }
@@ -162,7 +158,8 @@ namespace RogueSharpV3Tutorial
 
             DungeonMap.Draw( _mapConsole, _statConsole );
             Player.Draw( _mapConsole, DungeonMap );
-            Player.DrawStats( _statConsole );  
+            Player.DrawStats( _statConsole );
+            Player.DrawInventory( _inventoryConsole ); 
             MessageLog.Draw( _messageConsole );
 
             // Blit the sub consoles to the root console in the correct locations
